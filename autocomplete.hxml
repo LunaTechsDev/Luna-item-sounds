@@ -20,4 +20,4 @@
 # Place the plugins you want evaluated in this list
 --next
 -js dist/dummy.js
--main Luna_ItemSounds
+-main LunaItemSounds
