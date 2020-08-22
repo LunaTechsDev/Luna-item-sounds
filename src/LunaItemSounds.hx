@@ -42,7 +42,7 @@ class LunaItemSounds {
    if (match) {
     var audioParams: AudioParameters = {
      pos: 0,
-     pan: 100,
+     pan: 0,
      name: re.matched(0),
      volume: cast Fn.parseIntJs(re.matched(1), 10),
      pitch: cast Fn.parseIntJs(re.matched(2), 10),
@@ -62,7 +62,7 @@ class LunaItemSounds {
     if (re.match(scene._itemWindow.item().note)) {
      var audioParams: AudioParameters = {
       pos: 0,
-      pan: 100,
+      pan: 0,
       name: re.matched(0),
       volume: cast Fn.parseIntJs(re.matched(1), 10),
       pitch: cast Fn.parseIntJs(re.matched(2), 10),

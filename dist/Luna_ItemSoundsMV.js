@@ -2,7 +2,7 @@
 // Luna_ItemSoundsMV.js
 //=============================================================================
 //=============================================================================
-// Build Date: 2020-08-22 18:34:57
+// Build Date: 2020-08-22 18:39:14
 //=============================================================================
 //=============================================================================
 // Made with LunaTea -- Haxe
@@ -80,7 +80,7 @@ class LunaItemSounds {
 				let string = re.matched(1)
 				let audioParams1 = parseInt(string,10)
 				let string1 = re.matched(2)
-				let audioParams2 = { pos : 0, pan : 100, name : audioParams, volume : audioParams1, pitch : parseInt(string1,10)}
+				let audioParams2 = { pos : 0, pan : 0, name : audioParams, volume : audioParams1, pitch : parseInt(string1,10)}
 				return ItemEmitter.emit("ItemSounds",audioParams2);
 			} else {
 				return _SceneItem_playSeForItem.call(this);
@@ -97,7 +97,7 @@ class LunaItemSounds {
 					let string = re.matched(1)
 					let audioParams1 = parseInt(string,10)
 					let string1 = re.matched(2)
-					let audioParams2 = { pos : 0, pan : 100, name : audioParams, volume : audioParams1, pitch : parseInt(string1,10)}
+					let audioParams2 = { pos : 0, pan : 0, name : audioParams, volume : audioParams1, pitch : parseInt(string1,10)}
 					return ItemEmitter.emit("ItemSounds",audioParams2);
 				} else {
 					return oldPlayEquip.call(this);
