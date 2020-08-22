@@ -17,8 +17,6 @@ using core.StringExtensions;
 using StringTools;
 
 class LunaItemSounds {
- public static var textSpeed: Int = 2;
-
  public static function main() {
   var params: Any = Globals.Plugins.filter((plugin) -> {
    return ~/<LunaItmSnds>/ig.match(plugin.description);
