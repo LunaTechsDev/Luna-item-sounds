@@ -2,7 +2,7 @@
 // Luna_ItemSoundsMV.js
 //=============================================================================
 //=============================================================================
-// Build Date: 2020-08-22 18:39:14
+// Build Date: 2020-08-22 18:46:04
 //=============================================================================
 //=============================================================================
 // Made with LunaTea -- Haxe
@@ -50,6 +50,30 @@ class EReg {
 		}
 	}
 }
+class HxOverrides {
+	static cca(s,index) {
+		let x = s.charCodeAt(index)
+		if(x != x) {
+			return undefined;
+		}
+		return x;
+	}
+	static substr(s,pos,len) {
+		if(len == null) {
+			len = s.length
+		} else if(len < 0) {
+			if(pos == 0) {
+				len = s.length + len
+			} else {
+				return "";
+			}
+		}
+		return s.substr(pos,len);
+	}
+	static now() {
+		return Date.now();
+	}
+}
 class LunaItemSounds {
 	static main() {
 		let _this = $plugins
@@ -76,10 +100,10 @@ class LunaItemSounds {
 			let sceneItem = this
 			let re = new EReg("\\s*<se:\\s*(.*)\\s+(\\d+)\\s+(\\d+)\\s*>\\s*","ig")
 			if(re.match(sceneItem.item().note)) {
-				let audioParams = re.matched(0)
-				let string = re.matched(1)
+				let audioParams = StringTools.trim(re.matched(1))
+				let string = re.matched(2)
 				let audioParams1 = parseInt(string,10)
-				let string1 = re.matched(2)
+				let string1 = re.matched(3)
 				let audioParams2 = { pos : 0, pan : 0, name : audioParams, volume : audioParams1, pitch : parseInt(string1,10)}
 				return ItemEmitter.emit("ItemSounds",audioParams2);
 			} else {
@@ -93,10 +117,10 @@ class LunaItemSounds {
 			if(((scene) instanceof Scene_Equip)) {
 				let re = new EReg("\\s*<se:\\s*(.*)\\s+(\\d+)\\s+(\\d+)\\s*>\\s*","ig")
 				if(re.match(scene._itemWindow.item().note)) {
-					let audioParams = re.matched(0)
-					let string = re.matched(1)
+					let audioParams = StringTools.trim(re.matched(1))
+					let string = re.matched(2)
 					let audioParams1 = parseInt(string,10)
-					let string1 = re.matched(2)
+					let string1 = re.matched(3)
 					let audioParams2 = { pos : 0, pan : 0, name : audioParams, volume : audioParams1, pitch : parseInt(string1,10)}
 					return ItemEmitter.emit("ItemSounds",audioParams2);
 				} else {
@@ -106,6 +130,39 @@ class LunaItemSounds {
 				return oldPlayEquip.call(this);
 			}
 		}
+	}
+}
+class StringTools {
+	static isSpace(s,pos) {
+		let c = HxOverrides.cca(s,pos)
+		if(!(c > 8 && c < 14)) {
+			return c == 32;
+		} else {
+			return true;
+		}
+	}
+	static ltrim(s) {
+		let l = s.length
+		let r = 0
+		while(r < l && StringTools.isSpace(s,r)) ++r
+		if(r > 0) {
+			return HxOverrides.substr(s,r,l - r);
+		} else {
+			return s;
+		}
+	}
+	static rtrim(s) {
+		let l = s.length
+		let r = 0
+		while(r < l && StringTools.isSpace(s,l - r - 1)) ++r
+		if(r > 0) {
+			return HxOverrides.substr(s,0,l - r);
+		} else {
+			return s;
+		}
+	}
+	static trim(s) {
+		return StringTools.ltrim(StringTools.rtrim(s));
 	}
 }
 class haxe_Exception extends Error {
@@ -153,6 +210,9 @@ class utils_Fn {
 	static proto(obj) {
 		return obj.prototype;
 	}
+}
+if(typeof(performance) != "undefined" ? typeof(performance.now) == "function" : false) {
+	HxOverrides.now = performance.now.bind(performance)
 }
 LunaItemSounds.main()
 })({})

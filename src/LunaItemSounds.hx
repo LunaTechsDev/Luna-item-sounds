@@ -14,7 +14,7 @@ import utils.Fn;
 import utils.Comment;
 
 using core.StringExtensions;
-using Std;
+using StringTools;
 
 class LunaItemSounds {
  public static var textSpeed: Int = 2;
@@ -43,9 +43,9 @@ class LunaItemSounds {
     var audioParams: AudioParameters = {
      pos: 0,
      pan: 0,
-     name: re.matched(0),
-     volume: cast Fn.parseIntJs(re.matched(1), 10),
-     pitch: cast Fn.parseIntJs(re.matched(2), 10),
+     name: re.matched(1).trim(),
+     volume: cast Fn.parseIntJs(re.matched(2), 10),
+     pitch: cast Fn.parseIntJs(re.matched(3), 10),
     };
 
     ItemEmitter.emit(EmitterTypes.ITEM_SNDS, audioParams);
@@ -63,9 +63,9 @@ class LunaItemSounds {
      var audioParams: AudioParameters = {
       pos: 0,
       pan: 0,
-      name: re.matched(0),
-      volume: cast Fn.parseIntJs(re.matched(1), 10),
-      pitch: cast Fn.parseIntJs(re.matched(2), 10),
+      name: re.matched(1).trim(),
+      volume: cast Fn.parseIntJs(re.matched(2), 10),
+      pitch: cast Fn.parseIntJs(re.matched(3), 10),
      };
      ItemEmitter.emit(EmitterTypes.ITEM_SNDS, audioParams);
     } else {
