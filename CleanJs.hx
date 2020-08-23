@@ -76,7 +76,7 @@ class CleanJs {
     + cleanContents;
    File.write(filePath).writeString(newContent);
    var gamePath: String = generatePluginGamePath();
-   if (gamePath.length < 1) {
+   if (gamePath.length > 0) {
     File.write(generatePluginGamePath() + file).writeString(newContent);
    }
    trace("Cleaned Output File: " + filePath);
